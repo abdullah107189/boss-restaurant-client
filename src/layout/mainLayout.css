@@ -1,0 +1,15 @@
+@media (min-width: 1024px) {
+    .my-container {
+      min-height: calc(100vh - 444px);
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .my-container {
+      min-height: calc(100vh - 444px);
+    }
+  }
+@media (max-width: 776px) {
+    .my-container {
+      min-height: calc(100vh - 550px);
+    }
+  }
