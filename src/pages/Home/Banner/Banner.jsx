@@ -9,28 +9,26 @@ import img6 from '../../../assets/home/06.png'
 import './banner.css'
 const Banner = () => {
     return (
-        <div className="">
-            <Carousel className="h-screen">
-                <div className="sliderHight">
-                    <img className="" src={img1} />
-                </div>
-                <div className="sliderHight">
-                    <img className="" src={img2} />
-                </div>
-                <div className="sliderHight">
-                    <img className="" src={img3} />
-                </div>
-                <div className="sliderHight">
-                    <img className="" src={img4} />
-                </div>
-                <div className="sliderHight">
-                    <img className="" src={img5} />
-                </div>
-                <div className="sliderHight">
-                    <img className="" src={img6} />
-                </div>
-            </Carousel>
-        </div>
+        <Carousel className=" mb-10">
+            <div className="sliderHight">
+                <img className="" src={img4} />
+            </div>
+            <div className="sliderHight">
+                <img className="" src={img2} />
+            </div>
+            <div className="sliderHight">
+                <img className="" src={img3} />
+            </div>
+            <div className="sliderHight">
+                <img className="" src={img1} />
+            </div>
+            <div className="sliderHight">
+                <img className="" src={img5} />
+            </div>
+            <div className="sliderHight">
+                <img className="" src={img6} />
+            </div>
+        </Carousel>
     );
 };
 
