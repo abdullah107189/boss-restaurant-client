@@ -15,8 +15,10 @@ import SectionHeader from '../../../components/SectionHeader/SectionHeader';
 
 const HomeSlider = () => {
     return (
-        <div>
-            <SectionHeader subTitle={"From 11:00am to 10:00pm"} title={"order Online"}></SectionHeader>
+        <>
+            <div className='mt-20'>
+                <SectionHeader subTitle={"From 11:00am to 10:00pm"} title={"order Online"}></SectionHeader>
+            </div>
             <Swiper
                 slidesPerView={4}
                 spaceBetween={10}
@@ -25,7 +27,7 @@ const HomeSlider = () => {
                     clickable: true,
                 }}
                 modules={[FreeMode, Pagination]}
-                className="mySwiper font-serif"
+                className="mySwiper font-serif minW"
             >
                 <SwiperSlide className=''>
                     <img className='w-full' src={slide1} alt="" />
@@ -33,22 +35,22 @@ const HomeSlider = () => {
                 </SwiperSlide>
                 <SwiperSlide>
                     <img className='w-full' src={slide2} alt="" />
-                    <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Salad</p>
+                    <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Pizza</p>
                 </SwiperSlide>
                 <SwiperSlide>
                     <img className='w-full' src={slide3} alt="" />
-                    <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Salad</p>
+                    <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Soups</p>
                 </SwiperSlide>
                 <SwiperSlide>
                     <img className='w-full' src={slide4} alt="" />
-                    <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Salad</p>
+                    <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Cake</p>
                 </SwiperSlide>
                 <SwiperSlide>
                     <img className='w-full' src={slide5} alt="" />
                     <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Salad</p>
                 </SwiperSlide>
             </Swiper>
-        </div>
+        </>
     );
 }
 
