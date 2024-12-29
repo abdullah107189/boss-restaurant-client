@@ -2,8 +2,8 @@ import {
     createBrowserRouter,
 } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
-import Home from "../pages/Home/Home";
 import NotPage from "../components/NotPage/NotPage";
+import Home from "../pages/Home/Home/Home";
 
 export const router = createBrowserRouter([
     {
@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path:'*',
-        element:<NotPage></NotPage>
+        path: '*',
+        element: <NotPage></NotPage>
     },
 ]);

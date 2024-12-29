@@ -1,0 +1,6 @@
+
+  @media (min-width: 1024px) {
+    .sliderHight {
+      height: calc(100vh - 80px);
+    }
+  }
