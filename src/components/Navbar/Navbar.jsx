@@ -3,7 +3,7 @@ import shoppingCart from '../../assets/icon/151-1511569_cart-notifications-free-
 const Navbar = () => {
     const user = false;
     return (
-        <div className="uppercase navbar max-w-screen-xl fixed z-10 bg-gray-800/50 py-1">
+        <div className="text-white uppercase navbar max-w-screen-xl fixed z-10 bg-gray-800/50 py-1">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

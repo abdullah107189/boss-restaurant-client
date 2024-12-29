@@ -23,22 +23,27 @@ const HomeSlider = () => {
                     clickable: true,
                 }}
                 modules={[FreeMode, Pagination]}
-                className="mySwiper"
+                className="mySwiper font-serif"
             >
-                <SwiperSlide>
-                    <img src={slide1} alt="" />
+                <SwiperSlide className=''>
+                    <img className='w-full' src={slide1} alt="" />
+                    <p className='font-bold text-xl relative bottom-10 text-center text-white'>Salad</p>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide2} alt="" />
+                    <img className='w-full' src={slide2} alt="" />
+                    <p className='font-bold text-xl relative bottom-10 text-center text-white '>Salad</p>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide3} alt="" />
+                    <img className='w-full' src={slide3} alt="" />
+                    <p className='font-bold text-xl relative bottom-10 text-center text-white '>Salad</p>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide4} alt="" />
+                    <img className='w-full' src={slide4} alt="" />
+                    <p className='font-bold text-xl relative bottom-10 text-center text-white '>Salad</p>
                 </SwiperSlide>
                 <SwiperSlide>
-                    <img src={slide5} alt="" />
+                    <img className='w-full' src={slide5} alt="" />
+                    <p className='font-bold text-xl relative bottom-10 text-center text-white '>Salad</p>
                 </SwiperSlide>
             </Swiper>
         </>
