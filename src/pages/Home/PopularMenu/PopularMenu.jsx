@@ -13,7 +13,7 @@ const PopularMenu = () => {
             })
     }, [])
     return (
-        <div>
+        <div className="px-2 md:px-0">
             <SectionHeader subTitle={'Check in out'} title={"From our menu"}></SectionHeader>
             <SectionMenu items={popularMenu}></SectionMenu>
         </div>

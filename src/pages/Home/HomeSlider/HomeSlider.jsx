@@ -15,7 +15,7 @@ import SectionHeader from '../../../components/SectionHeader/SectionHeader';
 
 const HomeSlider = () => {
     return (
-        <>
+        <div className='px-2 md:px-0'>
             <div className='mt-20'>
                 <SectionHeader subTitle={"From 11:00am to 10:00pm"} title={"order Online"}></SectionHeader>
             </div>
@@ -50,7 +50,7 @@ const HomeSlider = () => {
                     <p className='font-bold md:text-xl relative bottom-10 text-center text-white '>Salad</p>
                 </SwiperSlide>
             </Swiper>
-        </>
+        </div>
     );
 }
 
