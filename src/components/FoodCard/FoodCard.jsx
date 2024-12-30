@@ -1,12 +1,14 @@
+/* eslint-disable react/prop-types */
 const FoodCard = ({ item }) => {
-    const { image, name, recipe } = item || {}
+    const { image, name, recipe, price } = item || {}
     return (
         <div className="card card-compact bg-base-100 rounded-xl shadow-xl lg:px-0 px-4">
-            <figure>
+            <figure >
                 <img
-                    className="w-full"
+                    className="w-full relative"
                     src={image}
                     alt={name} />
+                <p className="px-3 py-1 rounded-lg top-4 right-4 absolute bg-gray-800 text-white">${price}</p>
             </figure>
 
             <div className="card-body items-center text-center">

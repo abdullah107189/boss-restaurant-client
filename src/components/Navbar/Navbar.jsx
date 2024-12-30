@@ -27,7 +27,7 @@ const Navbar = () => {
                         <NavLink to={'/contact-us'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Contact Us</NavLink>
                         <NavLink to={'/dashboard'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
                         <NavLink to={'/our-menu'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Menu</NavLink>
-                        <NavLink to={'/our-shop'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
+                        <NavLink to={'/our-shop/salad'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
                     </ul>
                 </div>
                 <a href="/" className="font-bold text-xl">
@@ -40,7 +40,7 @@ const Navbar = () => {
                     <NavLink to={'/contact-us'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Contact Us</NavLink>
                     <NavLink to={'/dashboard'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
                     <NavLink to={'/our-menu'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Menu</NavLink>
-                    <NavLink to={'/our-shop'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
+                    <NavLink to={'/our-shop/salad'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
                 </ul>
             </div>
             <div className="navbar-end items-center gap-2">

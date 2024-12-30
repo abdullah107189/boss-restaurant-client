@@ -1,4 +1,7 @@
-const SectionMenu = ({ items }) => {
+import { Link } from "react-router-dom";
+
+/* eslint-disable react/prop-types */
+const SectionMenu = ({ items, category }) => {
     return (
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 md:gap-10 gap-5 minW mt-10">
@@ -15,9 +18,9 @@ const SectionMenu = ({ items }) => {
                     )
                 }
             </div>
-            <div className="flex items-center justify-center ">
+            <Link to={`/our-shop/${category}`} className="flex items-center justify-center ">
                 <button className="px-5 py-2 mt-4 content-center mb-5 border-b-4 rounded-lg">ORDER YOUR FAVOURITE FOOD</button>
-            </div>
+            </Link>
         </>
     );
 };

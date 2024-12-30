@@ -25,23 +25,23 @@ const Menu = () => {
 
             <MainCover img={menubg} title={"Our menu"} subTitle={"WOULD YOU LIKE TO TRY A DISH?"}></MainCover>
             <SectionHeader subTitle={"Don't miss"} title={"today Offer"}></SectionHeader>
-            <SectionMenu items={offered}></SectionMenu>
+            <SectionMenu items={offered} category="offered"></SectionMenu>
 
             {/* desserts  */}
             <ParallaxCover img={bgImage} subTitle={"Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."} title={"DESSERTS"}></ParallaxCover>
-            <SectionMenu items={dessert}></SectionMenu>
+            <SectionMenu items={dessert} category={"dessert"}></SectionMenu>
 
             {/* pizza */}
             <ParallaxCover img={pizzaImg} title={"PIZZA"} subTitle={"Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}></ParallaxCover>
-            <SectionMenu items={pizza}></SectionMenu>
+            <SectionMenu items={pizza} category={"pizza"}></SectionMenu>
 
             {/* salad */}
             <ParallaxCover img={saladImg} title={"salad"} subTitle={"Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}></ParallaxCover>
-            <SectionMenu items={salad}></SectionMenu>
+            <SectionMenu items={salad} category={"salad"}></SectionMenu>
 
             {/* soup */}
             <ParallaxCover img={soupImg} title={"soup"} subTitle={"Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}></ParallaxCover>
-            <SectionMenu items={soup}></SectionMenu>
+            <SectionMenu items={soup} category={"soup"}></SectionMenu>
 
 
         </div>
