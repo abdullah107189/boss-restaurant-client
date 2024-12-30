@@ -4,18 +4,11 @@ import bgImage from '../../assets/home/chef-service.jpg'
 import MainCover from "../../components/MainCover/MainCover";
 import SectionHeader from "../../components/SectionHeader/SectionHeader";
 import SectionMenu from "../../components/SectionMenu/SectionMenu";
-import { useEffect, useState } from "react";
 import ParallaxCover from "../../components/ParallaxCover/ParallaxCover";
+import useMenu from "../../hooks/useMenu";
 const Menu = () => {
-    const [offered, setOfferd] = useState([])
-    useEffect(() => {
-        fetch('/menu.json')
-            .then(res => res.json())
-            .then(data => {
-                const offeredMenu = data.filter(d => d.category === "offered")
-                setOfferd(offeredMenu)
-            })
-    }, [])
+    const [menu] = useMenu()
+    const offered = menu.filter(d => d.category === "offered")
     return (
         <div>
             <Helmet>
