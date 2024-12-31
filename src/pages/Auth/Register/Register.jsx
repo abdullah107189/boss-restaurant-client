@@ -1,8 +1,10 @@
 import bgImg from '../../../assets/menu/menu-bg.png'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash, FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa';
 import regPhoto from '../../../assets/others/authentication2.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../provider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -10,12 +12,33 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [photoURL, setphotoURL] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const { createUser, updateUserProfile } = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // Handle form submission logic here
-        console.log({ name, email, password, photoURL });
+        if (password.length <= 5) {
+            return toast.error('set minimum 6 letter')
+        }
+        // console.log({email, password, name, photoURL});
+        createUser(email, password)
+            .then(res => {
+                if (res.user) {
+                    updateUserProfile(name, photoURL)
+                        .then(() => {
+                            toast.success('Well Come to our restaurant')
+                            navigate('/')
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     };
+
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -31,6 +54,7 @@ const Register = () => {
                             <input
                                 type="text"
                                 id="name"
+                                required
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 className="w-full  rounded-md py-2 px-3 focus:outline-none"
@@ -41,6 +65,7 @@ const Register = () => {
                             <input
                                 type="email"
                                 id="email"
+                                required
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 className="w-full  rounded-md py-2 px-3 focus:outline-none"
@@ -50,6 +75,7 @@ const Register = () => {
                             <label htmlFor="photoURL" className="block text-gray-700">photoURL</label>
                             <input
                                 type="photoURL"
+                                required
                                 id="photoURL"
                                 value={photoURL}
                                 onChange={(e) => setphotoURL(e.target.value)}
@@ -62,6 +88,7 @@ const Register = () => {
                                 type={showPassword ? "text" : "password"}
                                 id="password"
                                 value={password}
+                                required
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none"
                             />

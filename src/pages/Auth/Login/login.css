@@ -1,0 +1,11 @@
+#canv{
+    height: 40px;
+    object-fit: contain;
+}
+
+#reload_href{
+    font-size: large;
+    font-weight: 700;
+    color: rgb(93, 95, 239) ;
+}
+

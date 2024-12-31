@@ -1,17 +1,20 @@
 import bgImg from '../../../assets/menu/menu-bg.png'
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { FaEye, FaEyeSlash, FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa';
 import regPhoto from '../../../assets/others/authentication2.png'
 import { Link } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha'
 import toast from 'react-hot-toast';
+import './login.css'
+import { AuthContext } from '../../../provider/AuthProvider';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [disabled, setDisabled] = useState(true)
-
+    const { user } = useContext(AuthContext)
+    console.log(user);
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -48,7 +51,6 @@ const Login = () => {
         }
     }
 
-
     return (
         <div className='min-h-screen lg:px-20 md:px-10 px-5  flex items-center justify-center' style={{ backgroundImage: `url(${bgImg})` }}>
             <div className="w-full border shadow-2xl grid grid-cols-1 md:grid-cols-2 items-center">
@@ -64,6 +66,7 @@ const Login = () => {
                                 type="email"
                                 id="email"
                                 value={email}
+                                placeholder='email type here'
                                 onChange={(e) => setEmail(e.target.value)}
                                 className="w-full  rounded-md py-2 px-3 focus:outline-none"
                             />
@@ -74,6 +77,7 @@ const Login = () => {
                                 type={showPassword ? "text" : "password"}
                                 id="password"
                                 value={password}
+                                placeholder='password type here'
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none"
                             />
@@ -94,7 +98,8 @@ const Login = () => {
                                 type="recaptcha"
                                 id="recaptcha"
                                 ref={recaptchaRef}
-                                className="w-full  rounded-md py-2 px-3 focus:outline-none"
+                                placeholder='recaptcha type here'
+                                className="w-full mt-2 rounded-md py-2 px-3 focus:outline-none"
                             />
                         </div>
                         <p className='btn w-full text-center cursor-pointer mb-3' onClick={handleRecaptch}>Validation</p>

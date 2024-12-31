@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import shoppingCart from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 const Navbar = () => {
-    const user = false;
+    const { user } = useContext(AuthContext)
     return (
         <div className="text-white uppercase navbar max-w-screen-xl fixed z-10 bg-gray-800/50 py-1">
             <div className="navbar-start">
@@ -45,21 +47,19 @@ const Navbar = () => {
             </div>
             <div className="navbar-end items-center gap-2">
                 <img className="md:w-16 md:h-16 w-14 h-14 object-contain" src={shoppingCart} alt="" />
-
                 {
                     user ?
-                        <div>
-                            <a className="btn">Sign Out</a>
-                            <img src={user?.photoURL} alt={user?.displayName} />
+                        <div className="flex items-center gap-2">
+                            <div className="avatar">
+                                <div className="mask mask-hexagon md:w-14 w-12">
+                                    <img src={user?.photoURL} alt={user?.displayName} />
+                                </div>
+                            </div>
+                            <button className="borderWithButton md:px-3 px-1">Sign Out</button>
                         </div>
                         :
                         <div className="flex items-center gap-2">
                             <Link to={'/login'} className="borderWithButton md:px-3 px-1 ">Sign In</Link>
-                            <div className="avatar">
-                                <div className="mask mask-hexagon md:w-14 w-12">
-                                    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                                </div>
-                            </div>
                         </div>
                 }
             </div>
