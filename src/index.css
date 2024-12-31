@@ -8,7 +8,7 @@
   }
 
   .activeButton {
-    @apply px-5 py-2 rounded-lg border-red-400 font-bold text-[#EEFF25] border-b-2
+    @apply px-5 py-2 rounded-lg border-red-400 font-bold md:text-[#EEFF25] border-b-2
   }
 
   .minW {

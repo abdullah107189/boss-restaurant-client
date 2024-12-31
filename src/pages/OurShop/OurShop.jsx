@@ -55,7 +55,7 @@ const OurShop = () => {
         <div>
             <MainCover img={shopBg} title={'Our Shop'} subTitle={"WOULD YOU LIKE TO TRY A DISH?"}></MainCover>
             <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} className={' my-10'}>
-                <TabList className={'flex justify-center my-10 py-2 bg-[#1d232a]'}>
+                <TabList className={'flex justify-center my-10 py-2 '}>
                     <Tab selectedClassName="border-b-4 rounded-lg  border-0 outline-none border-[#BB8506] text-[#BB8506]"
                         className="md:mx-3 mx-1 cursor-pointer md:px-3 px-1" onClick={() => navigate('/our-shop/salad')}>SALADS</Tab>
                     <Tab selectedClassName="border-b-4 rounded-lg  border-0 outline-none border-[#BB8506] text-[#BB8506]"

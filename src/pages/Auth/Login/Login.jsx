@@ -1,7 +1,7 @@
 const Login = () => {
     return (
         <div>
-            login form ...
+            Login page
         </div>
     );
 };

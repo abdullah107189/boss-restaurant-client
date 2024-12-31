@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import shoppingCart from '../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
 const Navbar = () => {
     const user = false;
@@ -22,7 +22,7 @@ const Navbar = () => {
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-3">
+                        className="menu menu-sm dropdown-content bg-base-100 text-black rounded-box z-[1] mt-3 w-52 p-2 shadow gap-3">
                         <NavLink to={'/'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Home</NavLink>
                         <NavLink to={'/contact-us'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Contact Us</NavLink>
                         <NavLink to={'/dashboard'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
@@ -30,8 +30,8 @@ const Navbar = () => {
                         <NavLink to={'/our-shop/salad'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
                     </ul>
                 </div>
-                <a href="/" className="font-bold text-xl">
-                    Boos Restaurant
+                <a href="/" className="font-bold md:text-xl">
+                    <span className="text-[#bb8506]">B</span>oos Restaurant
                 </a>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -44,7 +44,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end items-center gap-2">
-                <img className="w-16 h-16 object-contain" src={shoppingCart} alt="" />
+                <img className="md:w-16 md:h-16 w-14 h-14 object-contain" src={shoppingCart} alt="" />
 
                 {
                     user ?
@@ -54,9 +54,9 @@ const Navbar = () => {
                         </div>
                         :
                         <div className="flex items-center gap-2">
-                            <button className="borderWithButton">Sign In</button>
+                            <Link to={'/register'} className="borderWithButton md:px-3 px-1 ">Sign In</Link>
                             <div className="avatar">
-                                <div className="mask mask-hexagon w-14">
+                                <div className="mask mask-hexagon md:w-14 w-12">
                                     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
                                 </div>
                             </div>
