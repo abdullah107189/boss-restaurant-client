@@ -1,17 +1,32 @@
 .swiper-pagination {
-    position: relative !important;
-    bottom: -10px !important; /* Adjust based on your design */
-    text-align: center; 
-    margin-bottom: 10px;
-  }
+	position: relative !important;
+	text-align: center;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: center;
+	margin: 10px 0px;
+
+}
+
 .swiper-pagination-bullet {
 	padding: 10px;
 	border-radius: 50%;
 	opacity: 1;
-	background: rgba(0,0,0,0.5);
-    bottom: -20px !important;
+	top: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	position: relative;
+	background: rgba(0, 0, 0, 0.5);
 }
+
+.swiper-pagination-bullet span {
+	font-weight: 900;
+}
+
 .swiper-pagination-bullet-active {
-	color:#fff;
-	background: #EEFF25;
+	color: white;
+	background: #bb8506;
+	z-index: -1;
 }
