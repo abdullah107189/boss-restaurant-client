@@ -54,7 +54,7 @@ const Navbar = () => {
                         </div>
                         :
                         <div className="flex items-center gap-2">
-                            <Link to={'/register'} className="borderWithButton md:px-3 px-1 ">Sign In</Link>
+                            <Link to={'/login'} className="borderWithButton md:px-3 px-1 ">Sign In</Link>
                             <div className="avatar">
                                 <div className="mask mask-hexagon md:w-14 w-12">
                                     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
