@@ -39,7 +39,7 @@ const Navbar = () => {
                         className="menu menu-sm dropdown-content bg-base-100 text-black rounded-box z-[1] mt-3 w-52 p-2 shadow gap-3">
                         <NavLink to={'/'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Home</NavLink>
                         <NavLink to={'/contact-us'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Contact Us</NavLink>
-                        <NavLink to={'/dashboard'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
+                        <NavLink to={'/dashboard/user-home'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
                         <NavLink to={'/our-menu'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Menu</NavLink>
                         <NavLink to={'/our-shop/salad'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
                     </ul>
@@ -52,7 +52,7 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal px-1 gap-3">
                     <NavLink to={'/'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton '}`}>Home</NavLink>
                     <NavLink to={'/contact-us'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Contact Us</NavLink>
-                    <NavLink to={'/dashboard'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
+                    <NavLink to={'/dashboard/user-home'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Dashboard</NavLink>
                     <NavLink to={'/our-menu'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Menu</NavLink>
                     <NavLink to={'/our-shop/salad'} className={({ isActive }) => `${isActive ? 'activeButton' : 'borderWithButton'}`}>Our Shop</NavLink>
                 </ul>
