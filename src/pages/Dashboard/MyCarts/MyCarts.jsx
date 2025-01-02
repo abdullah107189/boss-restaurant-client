@@ -13,46 +13,48 @@ const MyCarts = () => {
             <div className="">
                 <div className="bg-gray-100 p-6 rounded-lg">
                     <div className="flex justify-between mb-4">
-                        <h2 className="text-lg font-semibold">TOTAL ORDERS: {carts.length}</h2>
-                        <h2 className="text-lg font-semibold">TOTAL PRICE: ${totalPrice}</h2>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <h2 className="md:text-lg font-semibold">TOTAL ORDERS: {carts.length}</h2>
+                        <h2 className="md:text-lg font-semibold">TOTAL PRICE: ${totalPrice}</h2>
+                        <button className="bg-[#D1A054] text-white font-bold py-2 px-4 rounded">
                             PAY
                         </button>
                     </div>
 
-                    <table className="w-full">
-                        <thead className="bg-[#D1A054] text-white">
-                            <tr>
-                                <th className="text-center py-2"></th>
-                                <th className="text-center py-2">ITEM IMAGE</th>
-                                <th className="text-left py-2">ITEM NAME</th>
-                                <th className="text-center py-2">PRICE</th>
-                                <th className="text-center py-2">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {carts.map((order, index) => (
-                                <tr key={index} className="border-b">
-                                    <td className="py-2j font-bold">
-                                        {index + 1}
-                                    </td>
-                                    <td className="py-2 flex justify-center">
-                                        <img className="w-20 h-14 rounded-md" src={order.image} alt="" ></img>
-                                    </td>
-                                    <td className="py-2">{order.name}</td>
-                                    <td className="text-right py-2 flex justify-center">
-                                        ${order.price.toFixed(1)}
-                                    </td>
-
-                                    <td className="text-center py-2">
-                                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
-                                            <MdDeleteForever />
-                                        </button>
-                                    </td>
+                    <div className=" overflow-x-auto">
+                        <table className="w-full table ">
+                            <thead className="bg-[#D1A054] text-white">
+                                <tr>
+                                    <th className=" py-2"></th>
+                                    <th className="text-center py-2">ITEM IMAGE</th>
+                                    <th className=" py-2">ITEM NAME</th>
+                                    <th className=" py-2 ">PRICE</th>
+                                    <th className="text-center py-2">ACTION</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {carts.map((order, index) => (
+                                    <tr key={index} className="border-b">
+                                        <td className="py-2j font-bold">
+                                            {index + 1}
+                                        </td>
+                                        <td className="py-2 flex justify-center">
+                                            <img className="w-20 h-14 rounded-md" src={order.image} alt="" ></img>
+                                        </td>
+                                        <td className="py-2">{order.name}</td>
+                                        <td className="py-2">
+                                            ${order.price.toFixed(1)}
+                                        </td>
+
+                                        <td className="text-center py-2">
+                                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                                                <MdDeleteForever />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

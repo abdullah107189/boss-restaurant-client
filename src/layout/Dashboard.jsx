@@ -13,8 +13,8 @@ const Dashboard = () => {
                     <div className="lg:ml-[350px]">
                         <Outlet></Outlet>
                     </div>
-                    <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
-                        Open drawer
+                    <label htmlFor="my-drawer-2" className="btn p-2 absolute bottom-2 right-2 bg-[#D1A054] text-white rounded-full drawer-button lg:hidden">
+                        <MdHome className="w-8 h-8" />
                     </label>
                 </div>
 
