@@ -5,26 +5,31 @@ import regPhoto from '../../../assets/others/authentication2.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../provider/AuthProvider';
 import toast from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
 
 const Register = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [photoURL, setphotoURL] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const navigate = useNavigate()
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (password.length <= 5) {
-            return toast.error('set minimum 6 letter')
-        }
-        // console.log({email, password, name, photoURL});
-        createUser(email, password)
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    // react form hook 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+
+    const onSubmit = (data) => {
+
+        createUser(data?.email, data?.password)
             .then(res => {
                 if (res.user) {
-                    updateUserProfile(name, photoURL)
+                    updateUserProfile(data?.name, data?.photoURL)
                         .then(() => {
                             toast.success('Well Come to our restaurant')
                             navigate('/')
@@ -37,59 +42,59 @@ const Register = () => {
             .catch(error => {
                 console.log(error);
             })
-    };
-
-    const toggleShowPassword = () => {
-        setShowPassword(!showPassword);
-    };
-
+    }
     return (
         <div className='min-h-screen lg:px-20 md:px-10 px-5  flex items-center justify-center' style={{ backgroundImage: `url(${bgImg})` }}>
             <div className="w-full border shadow-2xl grid grid-cols-1 md:grid-cols-2 items-center">
                 <div className="bg-transparent p-5 md:p-10 ">
                     <h1 className="text-3xl font-bold mb-2 text-center">Sign Up</h1>
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-2">
-                            <label htmlFor="name" className="block text-gray-700">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                required
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="w-full  rounded-md py-2 px-3 focus:outline-none"
-                            />
-                        </div>
+                    <form onSubmit={handleSubmit(onSubmit)}>                        <div className="mb-2">
+                        <label htmlFor="name" className="block text-gray-700">Name</label>
+                        <input
+                            type="text"
+                            {...register("name", { required: true })}
+                            id="name"
+                            className="w-full  rounded-md py-2 px-3 focus:outline-none"
+                        />
+                        {errors.name && <p className='text-red-500 mt-1'>Name field is required</p>}
+                    </div>
                         <div className="mb-2">
                             <label htmlFor="email" className="block text-gray-700">Email</label>
                             <input
                                 type="email"
                                 id="email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                {...register("email", { required: true })}
                                 className="w-full  rounded-md py-2 px-3 focus:outline-none"
                             />
+                            {errors.email && <p className='text-red-500 mt-1'>Email field is required</p>}
                         </div>
+
                         <div className="mb-2">
                             <label htmlFor="photoURL" className="block text-gray-700">photoURL</label>
                             <input
-                                type="photoURL"
-                                required
+                                type="url"
                                 id="photoURL"
-                                value={photoURL}
-                                onChange={(e) => setphotoURL(e.target.value)}
+                                {...register("photoURL", { required: true })}
                                 className="w-full  rounded-md py-2 px-3 focus:outline-none"
                             />
+                            {errors.photoURL && <p className='text-red-500 mt-1'>PhotoUrl field is required</p>}
                         </div>
+
                         <div className="mb-2 relative">
                             <label htmlFor="password" className="block text-gray-700">Password</label>
                             <input
                                 type={showPassword ? "text" : "password"}
                                 id="password"
-                                value={password}
-                                required
-                                onChange={(e) => setPassword(e.target.value)}
+
+                                {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    pattern: {
+                                        value: /(?=.*[A-Z])(?=.*[a-z])/,
+                                        message: "Password must have at least one uppercase letter, one lowercase letter"
+                                    }
+                                })}
+
                                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none"
                             />
                             <button
@@ -99,6 +104,9 @@ const Register = () => {
                             >
                                 {showPassword ? <FaEyeSlash className='w-5 h-5' /> : <FaEye className='w-5 h-5' />}
                             </button>
+                            {errors.password?.type === 'required' && <p className='text-red-500 mt-1'>Password field is required</p>}
+                            {errors.password?.type === 'minLength' && <p className='text-red-500 mt-1'>Password must be 6 cherecter</p>}
+                            {errors.password?.type === "pattern" && <p className='text-red-500 mt-1'>{errors.password.message}</p>}
                         </div>
                         <button
                             type="submit"

@@ -2,10 +2,11 @@ import bgImg from '../../../assets/menu/menu-bg.png'
 import { useContext, useEffect, useRef, useState } from 'react';
 import { FaEye, FaEyeSlash, FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa';
 import regPhoto from '../../../assets/others/authentication2.png'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha'
 import toast from 'react-hot-toast';
 import './login.css'
+import { useForm, } from "react-hook-form"
 import { AuthContext } from '../../../provider/AuthProvider';
 
 const Login = () => {
@@ -13,15 +14,12 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [disabled, setDisabled] = useState(true)
-    const { user } = useContext(AuthContext)
-    console.log(user);
+    const { loginInUser } = useContext(AuthContext)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location?.state?.location.pathname || '/'
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log({ email, password, });
     };
 
     // recaptcha
@@ -30,6 +28,7 @@ const Login = () => {
         loadCaptchaEnginge(6);
     }, [])
 
+    // recaptcha 
     const handleRecaptch = () => {
         const user_captcha_value = recaptchaRef.current.value
         if (recaptchaRef.current.value !== '') {
@@ -51,6 +50,26 @@ const Login = () => {
         }
     }
 
+    // react form hook 
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm()
+
+    // login and submit 
+    const onSubmit = (data) => {
+        console.log(data)
+        loginInUser(data?.email, data?.password)
+            .then(() => {
+                navigate(from)
+                toast.success('Well Come to our restaurant')
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+    }
     return (
         <div className='min-h-screen lg:px-20 md:px-10 px-5  flex items-center justify-center' style={{ backgroundImage: `url(${bgImg})` }}>
             <div className="w-full border shadow-2xl grid grid-cols-1 md:grid-cols-2 items-center">
@@ -59,24 +78,33 @@ const Login = () => {
                 </div>
                 <div className="bg-transparent p-5 md:p-10 ">
                     <h1 className="text-3xl font-bold mb-2 text-center">Sign In</h1>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+
                         <div className="mb-2">
                             <label htmlFor="email" className="block text-gray-700">Email</label>
                             <input
                                 type="email"
                                 id="email"
+                                {...register("email", { required: true })}
                                 value={email}
                                 placeholder='email type here'
                                 onChange={(e) => setEmail(e.target.value)}
                                 className="w-full  rounded-md py-2 px-3 focus:outline-none"
                             />
+                            {errors.email && <p className='text-red-500 mt-1'>Email field is required</p>}
                         </div>
+
                         <div className="mb-2 relative">
                             <label htmlFor="password" className="block text-gray-700">Password</label>
                             <input
                                 type={showPassword ? "text" : "password"}
                                 id="password"
                                 value={password}
+                                {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    pattern: /[A-Za-z]/
+                                })}
                                 placeholder='password type here'
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none"
@@ -88,6 +116,9 @@ const Login = () => {
                             >
                                 {showPassword ? <FaEyeSlash className='w-5 h-5' /> : <FaEye className='w-5 h-5' />}
                             </button>
+                            {errors.password?.type === 'required' && <p className='text-red-500 mt-1'>Password field is required</p>}
+                            {errors.password?.type === 'minLength' && <p className='text-red-500 mt-1'>Password must be 6 cherecter</p>}
+                            {errors.password?.type === 'pattern' && <p className='text-red-500 mt-1'>Password must have One Uppercase One Lowercase</p>}
                         </div>
 
                         {/* recaptcha */}
