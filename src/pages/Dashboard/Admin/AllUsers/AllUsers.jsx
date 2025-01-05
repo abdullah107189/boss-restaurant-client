@@ -4,19 +4,41 @@ import SectionHeader from "../../../../components/SectionHeader/SectionHeader";
 import { MdDeleteForever } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
-
+import toast from "react-hot-toast";
 const AllUsers = () => {
     const instance = useAxiosSecure()
     const { data: allUser = [], isLoading, refetch } = useQuery({
-        queryKey: ['allUsers'],
+        queryKey: ['allUsers',],
         queryFn: async () => {
             const { data } = await instance.get('/users')
             return data;
         }
     })
-    console.log(allUser);
+
+    // change role 
+    const handleRoleChange = async (user) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Give the Admin Role!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Give Admin"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { data } = await instance.patch(`/user/admin/${user?._id}`)
+                console.log(data);
+                if (data) {
+                    toast.success('Success Added Admin Role')
+                }
+                refetch()
+            }
+        });
+    }
+
+    // delete user
     const handleDelete = (user) => {
-        console.log(user);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -88,8 +110,12 @@ const AllUsers = () => {
                                                 <td className="py-2 ">{user?.name}</td>
                                                 <td className="py-2">{user.email}</td>
                                                 <td className="py-2">
-                                                    <FaUsers className="w-10 h-10 bg-[#D1A054] text-white p-1 rounded" />
-
+                                                    {user?.role === "admin" ?
+                                                        'admin' :
+                                                        <button onClick={() => handleRoleChange(user)} className="">
+                                                            <FaUsers className="w-10 h-10 bg-[#D1A054] text-white p-1 rounded" />
+                                                        </button>
+                                                    }
                                                 </td>
 
                                                 <td className="text-center py-2">
