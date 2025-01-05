@@ -3,8 +3,10 @@ import auth from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 
 export const AuthContext = createContext(null)
+// eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const [loading, setLoading] = useState(true)
 
     const createUser = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password)
@@ -28,8 +30,10 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
+                setLoading(false)
                 setUser(currentUser)
             } else {
+                setLoading(false)
                 setUser(null)
             }
         });
@@ -44,6 +48,8 @@ const AuthProvider = ({ children }) => {
         updateUserProfile,
         logoutUser,
         loginInUser,
+        loading, setLoading,
+
     }
     return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
 };

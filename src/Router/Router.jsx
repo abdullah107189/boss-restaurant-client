@@ -15,6 +15,7 @@ import Reservation from "../pages/Dashboard/Reservation/Reservation";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import AddReview from "../pages/Dashboard/AddReview/AddReview";
 import MyBooking from "../pages/Dashboard/MyBooking/MyBooking";
+import PrivetRoute from "../Route/PrivetRoute";
 
 export const router = createBrowserRouter([
     {
@@ -45,7 +46,7 @@ export const router = createBrowserRouter([
     },
     {
         path: 'dashboard',
-        element: <Dashboard></Dashboard>,
+        element: <PrivetRoute><Dashboard></Dashboard></PrivetRoute>,
         children: [
             {
                 path: 'my-carts',

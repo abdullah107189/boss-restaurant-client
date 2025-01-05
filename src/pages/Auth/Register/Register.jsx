@@ -6,13 +6,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../provider/AuthProvider';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
     const { createUser, updateUserProfile } = useContext(AuthContext)
     const navigate = useNavigate()
-
-
+    const axiosPublic = useAxiosPublic()
     const toggleShowPassword = () => {
         setShowPassword(!showPassword);
     };
@@ -25,13 +25,27 @@ const Register = () => {
     } = useForm()
 
     const onSubmit = (data) => {
-
         createUser(data?.email, data?.password)
             .then(res => {
                 if (res.user) {
                     updateUserProfile(data?.name, data?.photoURL)
                         .then(() => {
-                            toast.success('Well Come to our restaurant')
+                            // send user info in db
+                            const userdata = {
+                                name: data?.name,
+                                email: data?.email,
+                                creationTime: new Date()
+                            }
+                            axiosPublic.post('/users', userdata)
+                                .then(res => {
+                                    console.log(res.data);
+                                    if (res.data.insertedId) {
+                                        toast.success('Well Come to our restaurant')
+                                    }
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                })
                             navigate('/')
                         })
                         .catch(error => {
