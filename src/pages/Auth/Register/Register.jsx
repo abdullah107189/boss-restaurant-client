@@ -1,12 +1,13 @@
 import bgImg from '../../../assets/menu/menu-bg.png'
 import { useContext, useState } from 'react';
-import { FaEye, FaEyeSlash, FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa';
+import { FaEye, FaEyeSlash  } from 'react-icons/fa';
 import regPhoto from '../../../assets/others/authentication2.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../provider/AuthProvider';
 import toast from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import SocialBtn from '../../../components/socialBtn/socialBtn';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -132,17 +133,7 @@ const Register = () => {
                     <div className="mt-4 text-center">
                         <p className="text-[#D1A054] text-center">Already registered? <Link to={'/login'} className="text-[#D1A054] font-bold">Go to log in</Link></p>
                         <p className="mt-2">Or sign up with</p>
-                        <div className="flex space-x-4 mt-2 justify-center">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white rounded-full p-2">
-                                <FaFacebook />
-                            </button>
-                            <button className="bg-red-500 hover:bg-red-700 text-white rounded-full p-2">
-                                <FaGoogle />
-                            </button>
-                            <button className="bg-blue-400 hover:bg-blue-600 text-white rounded-full p-2">
-                                <FaTwitter />
-                            </button>
-                        </div>
+                        <SocialBtn></SocialBtn>
                     </div>
                 </div>
                 <div className="hidden md:block">
