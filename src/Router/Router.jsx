@@ -16,6 +16,7 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import AddReview from "../pages/Dashboard/AddReview/AddReview";
 import MyBooking from "../pages/Dashboard/MyBooking/MyBooking";
 import PrivetRoute from "../Route/PrivetRoute";
+import AllUsers from "../pages/Dashboard/Admin/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
     {
@@ -73,6 +74,11 @@ export const router = createBrowserRouter([
                 path: "my-booking",
                 element: <MyBooking />
             },
+            // admin 
+            {
+                path: 'all-users',
+                element: <AllUsers></AllUsers>
+            }
         ]
     },
     {
