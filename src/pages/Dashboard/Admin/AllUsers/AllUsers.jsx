@@ -3,10 +3,11 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import SectionHeader from "../../../../components/SectionHeader/SectionHeader";
 import { MdDeleteForever } from "react-icons/md";
 import { FaUsers } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
     const instance = useAxiosSecure()
-    const { data: allUser = [], isLoading } = useQuery({
+    const { data: allUser = [], isLoading, refetch } = useQuery({
         queryKey: ['allUsers'],
         queryFn: async () => {
             const { data } = await instance.get('/users')
@@ -14,8 +15,31 @@ const AllUsers = () => {
         }
     })
     console.log(allUser);
-    const handleDelete = (id) => {
-        console.log(id);
+    const handleDelete = (user) => {
+        console.log(user);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                instance.delete(`/users/${user?._id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            })
+                        }
+                    });
+            }
+        });
     }
     return (
         <div className="">
@@ -69,7 +93,7 @@ const AllUsers = () => {
                                                 </td>
 
                                                 <td className="text-center py-2">
-                                                    <button onClick={() => handleDelete(user?._id)} className="bg-red-500 hover:bg-red-700 text-white font-bold rounded">
+                                                    <button onClick={() => handleDelete(user)} className="bg-red-500 hover:bg-red-700 text-white font-bold rounded">
                                                         <MdDeleteForever className="w-10 h-10 text-white p-1 rounded-lg" />
                                                     </button>
                                                 </td>
