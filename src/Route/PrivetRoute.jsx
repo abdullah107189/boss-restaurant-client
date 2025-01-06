@@ -5,12 +5,12 @@ const PrivetRoute = ({ children }) => {
     const location = useLocation()
     const { user, loading } = useAuth()
     if (loading) {
-        return <span className="loading-spinner"></span>
+        return <p>loading...........</p>
     }
     if (user) {
         return children;
     }
-    return <Navigate to={'/login'} state={{location}} replace={true}></Navigate>
+    return <Navigate to={'/login'} state={{ location }} replace={true}></Navigate>
 };
 
 export default PrivetRoute;

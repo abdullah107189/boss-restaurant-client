@@ -2,9 +2,10 @@ import { NavLink, Outlet } from "react-router-dom";
 import { MdHome, MdRestaurantMenu, MdList, MdBook, MdCalendarToday, MdWallet, MdShoppingCart, MdStars, MdOutlineLocalOffer } from 'react-icons/md';
 
 import { FaHome, FaBars, FaShoppingCart, FaEnvelope, FaUsers } from 'react-icons/fa';
+import useAdmin from "../hooks/useAdmin";
 const Dashboard = () => {
-    // TO DO:
-    const admin = true;
+    const { isAdmin } = useAdmin()
+    const admin = isAdmin;
     return (
         <div className="max-w-screen-xl mx-auto">
             <div className="drawer lg:drawer-open">
@@ -41,7 +42,7 @@ const Dashboard = () => {
                                         </NavLink>
                                         <NavLink to="/dashboard/manage-items" className={({ isActive }) => `${isActive ? 'text-white font-bold' : ''} flex hover:text-white transform duration-100 items-center space-x-2`}>
                                             <MdList className="w-6 h-6" />
-                                            <span>Mange List</span>
+                                            <span>Mange Items</span>
                                         </NavLink>
                                         <NavLink to="/dashboard/manage-bookings" className={({ isActive }) => `${isActive ? 'text-white font-bold' : ''} flex hover:text-white transform duration-100 items-center space-x-2`}>
                                             <MdBook className="w-6 h-6" />

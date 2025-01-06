@@ -1,12 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import auth from "../firebase/firebase.config";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext(null)
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const axiosPublic = useAxiosPublic()
 
     const googleProvider = new GoogleAuthProvider();
     const createUserWithGoogle = () => {
@@ -30,9 +32,17 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
+                const userInfo = { email: currentUser.email }
+                axiosPublic.post('/jwt-sing', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data?.token)
+                        }
+                    })
                 setLoading(false)
                 setUser(currentUser)
             } else {
+                localStorage.clear('access-token')
                 setLoading(false)
                 setUser(null)
             }

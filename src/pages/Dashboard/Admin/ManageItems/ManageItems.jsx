@@ -1,44 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import SectionHeader from "../../../../components/SectionHeader/SectionHeader";
+// import { useQuery } from "@tanstack/react-query";
+// import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { MdDeleteForever } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 import Swal from "sweetalert2";
-import toast from "react-hot-toast";
-const AllUsers = () => {
+import SectionHeader from "../../../../components/SectionHeader/SectionHeader";
+import useMenu from "../../../../hooks/useMenu";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
+const ManageItems = () => {
+    const { menu, isLoading, refetch } = useMenu()
     const instance = useAxiosSecure()
-    const { data: allUser = [], isLoading, refetch } = useQuery({
-        queryKey: ['allUsers',],
-        queryFn: async () => {
-            const { data } = await instance.get('/users')
-            return data;
-        }
-    })
 
-
-    // change role 
-    const handleRoleChange = async (user) => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "Give the Admin Role!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Give Admin"
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                const { data } = await instance.patch(`/user/admin/${user?._id}`)
-                if (data.modifiedCount > 0) {
-                    toast.success('Success Added Admin Role')
-                }
-                refetch()
-            }
-        });
-    }
-
-    // delete user
-    const handleDelete = (user) => {
+    const handleDelete = (item) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -49,13 +22,16 @@ const AllUsers = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`/users/${user?._id}`)
+                instance.delete(`/menu/${item?._id}`)
                     .then(res => {
                         if (res.data.deletedCount) {
                             refetch()
                             Swal.fire({
+                                position: 'top-right',
+                                showConfirmButton: false,
+                                timer: 1500,
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: `${item?.name} has been deleted.`,
                                 icon: "success"
                             })
                         }
@@ -69,7 +45,7 @@ const AllUsers = () => {
             <div className="">
                 <div className="bg-gray-100 p-6 rounded-lg">
                     <div className="flex justify-between mb-4 font-serif">
-                        <h2 className="md:text-lg font-semibold uppercase">TOTAL Users: {allUser.length}</h2>
+                        <h2 className="md:text-lg font-semibold uppercase">TOTAL Users: {menu.length}</h2>
                         <button className="bg-[#D1A054] text-white font-bold py-2 px-4 rounded">
                             PAY
                         </button>
@@ -80,9 +56,10 @@ const AllUsers = () => {
                             <thead className="bg-[#D1A054] text-white  ">
                                 <tr className="4">
                                     <th className=" md:py-6 py-4"></th>
-                                    <th className="py-2">Name</th>
-                                    <th className="py-2">EMAIL</th>
-                                    <th className="py-2 ">ROLE</th>
+                                    <th className="py-2">ITEM IMAGE</th>
+                                    <th className="py-2">ITEM NAME</th>
+                                    <th className="py-2 ">PRICE</th>
+                                    <th className="py-2 ">UPDATE</th>
                                     <th className="text-center py-2">ACTION</th>
                                 </tr>
                             </thead>
@@ -102,24 +79,29 @@ const AllUsers = () => {
                                     </tbody>
                                     :
                                     <tbody>
-                                        {allUser.map((user, index) => (
+                                        {menu.map((item, index) => (
                                             <tr key={index} className="">
                                                 <td className="py-2 font-bold">
                                                     {index + 1}
                                                 </td>
-                                                <td className="py-2 ">{user?.name}</td>
-                                                <td className="py-2">{user.email}</td>
+                                                <td className="py-2 ">
+                                                    <td className="py-2 flex justify-center">
+                                                        <img className="w-20 h-14 rounded-md object-contain" src={item?.image} alt={item?.image} ></img>
+                                                    </td>
+                                                </td>
+                                                <td className="py-2">{item?.name}</td>
+
                                                 <td className="py-2">
-                                                    {user?.role === "admin" ?
-                                                        'admin' :
-                                                        <button onClick={() => handleRoleChange(user)} className="">
-                                                            <FaUsers className="w-10 h-10 bg-[#D1A054] text-white p-1 rounded" />
-                                                        </button>
-                                                    }
+                                                    {item?.price}
                                                 </td>
 
                                                 <td className="text-center py-2">
-                                                    <button onClick={() => handleDelete(user)} className="bg-red-500 hover:bg-red-700 text-white font-bold rounded">
+                                                    <Link to={`/dashboard/updateItem/${item?._id}`} className="bg-[#D1A054] text-white font-bold rounded">
+                                                        <HiOutlinePencilSquare className="w-10 h-10 bg-[#D1A054] text-white p-1 rounded-lg" />
+                                                    </Link>
+                                                </td>
+                                                <td className="text-center py-2">
+                                                    <button onClick={() => handleDelete(item)} className="bg-red-500 hover:bg-red-700 text-white font-bold rounded">
                                                         <MdDeleteForever className="w-10 h-10 text-white p-1 rounded-lg" />
                                                     </button>
                                                 </td>
@@ -136,4 +118,4 @@ const AllUsers = () => {
     );
 };
 
-export default AllUsers;
+export default ManageItems;

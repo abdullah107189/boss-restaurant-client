@@ -11,7 +11,7 @@ import SectionMenu from "../../components/SectionMenu/SectionMenu";
 import ParallaxCover from "../../components/ParallaxCover/ParallaxCover";
 import useMenu from "../../hooks/useMenu";
 const Menu = () => {
-    const [menu] = useMenu()
+    const {menu} = useMenu()
     const offered = menu.filter(d => d.category === "offered")
     const dessert = menu.filter(d => d.category === "dessert")
     const pizza = menu.filter(d => d.category === "pizza")

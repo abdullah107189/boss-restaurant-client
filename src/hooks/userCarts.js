@@ -11,7 +11,8 @@ const userCarts = () => {
         queryFn: async () => {
             const { data } = await instance.get(`/carts?email=${user?.email}`)
             return data;
-        }
+        }, enabled: !!user?.email
+
     })
     return { carts, isLoading, error, refetch }
 };

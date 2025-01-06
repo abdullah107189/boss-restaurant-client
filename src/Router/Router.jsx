@@ -17,6 +17,10 @@ import AddReview from "../pages/Dashboard/AddReview/AddReview";
 import MyBooking from "../pages/Dashboard/MyBooking/MyBooking";
 import PrivetRoute from "../Route/PrivetRoute";
 import AllUsers from "../pages/Dashboard/Admin/AllUsers/AllUsers";
+import AdminRoute from "../Route/AdminRoute";
+import AddItems from "../pages/Dashboard/Admin/AddItems/AddItems";
+import ManageItems from "../pages/Dashboard/Admin/ManageItems/ManageItems";
+import UpdateItem from "../pages/Dashboard/Admin/UpdateItem/UpdateItem";
 
 export const router = createBrowserRouter([
     {
@@ -77,7 +81,20 @@ export const router = createBrowserRouter([
             // admin 
             {
                 path: 'all-users',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute> <AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: 'add-items',
+                element: <AdminRoute><AddItems></AddItems></AdminRoute>
+            },
+            {
+                path: 'manage-items',
+                element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+            },
+            {
+                path: 'updateItem/:id',
+                element: <UpdateItem></UpdateItem>,
+                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
             }
         ]
     },

@@ -3,7 +3,7 @@ import SectionHeader from "../../../components/SectionHeader/SectionHeader";
 import useMenu from "../../../hooks/useMenu";
 
 const PopularMenu = () => {
-    const [menu] = useMenu()
+    const {menu} = useMenu()
     const popularMenu = menu.filter(d => d.category === "popular")
 
     return (
