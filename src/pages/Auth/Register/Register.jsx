@@ -1,6 +1,6 @@
 import bgImg from '../../../assets/menu/menu-bg.png'
 import { useContext, useState } from 'react';
-import { FaEye, FaEyeSlash  } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import regPhoto from '../../../assets/others/authentication2.png'
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../provider/AuthProvider';
@@ -39,7 +39,6 @@ const Register = () => {
                             }
                             axiosPublic.post('/users', userdata)
                                 .then(res => {
-                                    console.log(res.data);
                                     if (res.data.insertedId) {
                                         toast.success('Well Come to our restaurant')
                                     }

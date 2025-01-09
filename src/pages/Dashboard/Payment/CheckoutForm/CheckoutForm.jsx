@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useCarts from "../../../../hooks/useCarts";
 import useAuth from "../../../../hooks/useAuth";
+import Swal from "sweetalert2";
 const CheckoutForm = () => {
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
@@ -11,7 +12,7 @@ const CheckoutForm = () => {
     const elements = useElements();
     const [paymentError, setPaymentError] = useState('')
     const [transactionId, setTransactionId] = useState('')
-    const { carts } = useCarts()
+    const { carts,refetch } = useCarts()
     const totalPrice = carts.reduce((total, item) => total + item.price, 0)
 
     useEffect(() => {
@@ -64,6 +65,23 @@ const CheckoutForm = () => {
             console.log('payment intent', paymentIntent);
             if (paymentIntent.status === 'succeeded') {
                 setTransactionId(paymentIntent.id)
+                const payment = {
+                    email: user?.email,
+                    transactionId: paymentIntent.id,
+                    price: totalPrice,
+                    date: new Date(),//utc date convert to do. use moment js
+                    cardIds: carts.map(item => item._id),
+                    status: 'pending'
+                }
+                const { data } = await axiosSecure.post('/payments', payment)
+                if (data.paymentResult.insertedId) {
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success"
+                    });
+                    refetch()
+                }
             }
         }
     }

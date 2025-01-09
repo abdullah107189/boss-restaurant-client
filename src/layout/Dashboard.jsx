@@ -2,7 +2,9 @@ import { NavLink, Outlet } from "react-router-dom";
 import { MdHome, MdRestaurantMenu, MdList, MdBook, MdCalendarToday, MdWallet, MdShoppingCart, MdStars, MdOutlineLocalOffer } from 'react-icons/md';
 import { FaHome, FaBars, FaShoppingCart, FaEnvelope, FaUsers } from 'react-icons/fa';
 import useAdmin from "../hooks/useAdmin";
+import useCarts from "../hooks/useCarts";
 const Dashboard = () => {
+    const { carts } = useCarts()
     const { isAdmin } = useAdmin()
     const admin = isAdmin;
     return (
@@ -62,13 +64,13 @@ const Dashboard = () => {
                                             <MdCalendarToday className="w-6 h-6" />
                                             <span>Reservation</span>
                                         </NavLink>
-                                        <NavLink to={'/dashboard/payment'} className={({ isActive }) => `${isActive ? 'text-white font-bold' : ''} flex hover:text-white transform duration-100 items-center space-x-2`}>
+                                        <NavLink to={'/dashboard/payment-history'} className={({ isActive }) => `${isActive ? 'text-white font-bold' : ''} flex hover:text-white transform duration-100 items-center space-x-2`}>
                                             <MdWallet className="w-6 h-6" />
                                             <span>Payment History</span>
                                         </NavLink>
                                         <NavLink to={'/dashboard/my-carts'} className={({ isActive }) => `${isActive ? 'text-white font-bold' : ''} flex hover:text-white transform duration-100 items-center space-x-2`}>
                                             <MdShoppingCart className="w-6 h-6" />
-                                            <span>My cart</span>
+                                            <span>My cart ( {carts.length} )</span>
                                         </NavLink>
                                         <NavLink to={'/dashboard/add-review'} className={({ isActive }) => `${isActive ? 'text-white font-bold' : ''} flex hover:text-white transform duration-100 items-center space-x-2`}>
                                             <MdStars className="w-6 h-6" />
