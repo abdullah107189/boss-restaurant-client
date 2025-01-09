@@ -9,7 +9,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { Link } from "react-router-dom";
 const ManageItems = () => {
     const { menu, isLoading, refetch } = useMenu()
-    const instance = useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
 
     const handleDelete = (item) => {
         Swal.fire({
@@ -22,7 +22,7 @@ const ManageItems = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`/menu/${item?._id}`)
+                axiosSecure.delete(`/menu/${item?._id}`)
                     .then(res => {
                         if (res.data.deletedCount) {
                             refetch()

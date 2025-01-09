@@ -12,7 +12,7 @@ const UpdateItem = () => {
     const { name, category, price, recipe, image, _id } = useLoaderData()
 
     const axiosPublic = useAxiosPublic()
-    const instance = useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
     // fileChnage
     const [fileName, setFileName] = useState('No file chosen');
     const { handleSubmit, formState: { errors }, register } = useForm()
@@ -58,7 +58,7 @@ const UpdateItem = () => {
                 price: parseFloat(d.price)
             }
         }
-        const { data: addItem } = await instance.patch(`/menu/${_id}`, updateItem)
+        const { data: addItem } = await axiosSecure.patch(`/menu/${_id}`, updateItem)
         if (addItem.modifiedCount > 0) {
             toast.success('added successfully done !')
             navigate('/dashboard/manage-items')

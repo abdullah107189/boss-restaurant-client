@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
-import userCarts from "../../hooks/userCarts";
+import useCarts from "../../hooks/useCarts";
 
 /* eslint-disable react/prop-types */
 const FoodCard = ({ item }) => {
@@ -13,8 +13,8 @@ const FoodCard = ({ item }) => {
     const { user } = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
-    const instance = useAxiosSecure()
-    const { refetch } = userCarts()
+    const axiosSecure = useAxiosSecure()
+    const { refetch } = useCarts()
 
     const handleFoodItem = async () => {
         if (user?.email) {
@@ -25,7 +25,7 @@ const FoodCard = ({ item }) => {
                 image,
                 price,
             }
-            const { data } = await instance.post('/carts', cartItem)
+            const { data } = await axiosSecure.post('/carts', cartItem)
             if (data.insertedId) {
                 refetch()
                 toast.success('product added in the cart')

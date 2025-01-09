@@ -3,7 +3,7 @@ import shoppingCart from '../../assets/icon/151-1511569_cart-notifications-free-
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import toast from "react-hot-toast";
-import userCarts from "../../hooks/userCarts";
+import useCarts from "../../hooks/useCarts";
 const Navbar = () => {
     const { user, logoutUser } = useContext(AuthContext)
     const handleLogout = () => {
@@ -15,7 +15,7 @@ const Navbar = () => {
                 toast.error(error.message)
             })
     }
-    const { carts } = userCarts()
+    const { carts } = useCarts()
     return (
         <div className="text-white uppercase navbar max-w-screen-xl fixed z-10 bg-gray-800/50 py-1">
             <div className="navbar-start">

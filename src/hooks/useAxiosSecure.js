@@ -2,13 +2,13 @@ import axios from "axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
-export const instance = axios.create({
+export const axiosSecure = axios.create({
     baseURL: 'http://localhost:5000'
 })
 const useAxiosSecure = () => {
     const navigate = useNavigate()
     const { logoutUser } = useAuth()
-    instance.interceptors.request.use(function (config) {
+    axiosSecure.interceptors.request.use(function (config) {
         const token = localStorage.getItem('access-token')
         config.headers.authorization = `Bearer ${token}`
         return config;
@@ -17,7 +17,7 @@ const useAxiosSecure = () => {
     });
 
     // Add a response interceptor
-    instance.interceptors.response.use(function (response) {
+    axiosSecure.interceptors.response.use(function (response) {
         return response;
     }, async (error) => {
         const status = error.status
@@ -28,6 +28,6 @@ const useAxiosSecure = () => {
         }
         return Promise.reject(error);
     });
-    return instance;
+    return axiosSecure;
 }
 export default useAxiosSecure;

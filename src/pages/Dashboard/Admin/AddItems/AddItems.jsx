@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 const AddItems = () => {
     const axiosPublic = useAxiosPublic()
-    const instance = useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
     // fileChnage
     const [fileName, setFileName] = useState('No file chosen');
     const { handleSubmit, formState: { errors }, register } = useForm()
@@ -36,7 +36,7 @@ const AddItems = () => {
             price: parseFloat(d.price)
         }
         if (imgData.data.url) {
-            const { data: addItem } = await instance.post('/menus', manageItem)
+            const { data: addItem } = await axiosSecure.post('/menus', manageItem)
             console.log(addItem);
             if (addItem.insertedId) {
                 toast.success('added successfully done !')

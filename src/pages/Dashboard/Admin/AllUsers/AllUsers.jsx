@@ -6,11 +6,11 @@ import { FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 const AllUsers = () => {
-    const instance = useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
     const { data: allUser = [], isLoading, refetch } = useQuery({
         queryKey: ['allUsers',],
         queryFn: async () => {
-            const { data } = await instance.get('/users')
+            const { data } = await axiosSecure.get('/users')
             return data;
         }
     })
@@ -28,7 +28,7 @@ const AllUsers = () => {
             confirmButtonText: "Yes, Give Admin"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const { data } = await instance.patch(`/user/admin/${user?._id}`)
+                const { data } = await axiosSecure.patch(`/user/admin/${user?._id}`)
                 if (data.modifiedCount > 0) {
                     toast.success('Success Added Admin Role')
                 }
@@ -49,7 +49,7 @@ const AllUsers = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`/users/${user?._id}`)
+                axiosSecure.delete(`/users/${user?._id}`)
                     .then(res => {
                         if (res.data.deletedCount) {
                             refetch()

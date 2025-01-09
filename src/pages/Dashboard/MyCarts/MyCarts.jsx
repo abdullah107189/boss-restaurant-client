@@ -1,12 +1,13 @@
 import { MdDeleteForever } from "react-icons/md";
 import SectionHeader from "../../../components/SectionHeader/SectionHeader";
-import userCarts from "../../../hooks/userCarts";
+import useCarts from "../../../hooks/useCarts";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyCarts = () => {
-    const { carts, isLoading, refetch } = userCarts()
-    const instance = useAxiosSecure()
+    const { carts, isLoading, refetch } = useCarts()
+    const axiosSecure = useAxiosSecure()
     const totalPrice = carts.reduce((total, order) => total + order.price, 0).toFixed(2);
     const handleDelete = (id) => {
         Swal.fire({
@@ -19,7 +20,7 @@ const MyCarts = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.delete(`/carts/${id}`)
+                axiosSecure.delete(`/carts/${id}`)
                     .then(res => {
                         if (res.data.deletedCount) {
                             refetch()
@@ -41,9 +42,18 @@ const MyCarts = () => {
                     <div className="flex justify-between mb-4 font-serif">
                         <h2 className="md:text-lg font-semibold">TOTAL ORDERS: {carts.length}</h2>
                         <h2 className="md:text-lg font-semibold">TOTAL PRICE: ${totalPrice}</h2>
-                        <button className="bg-[#D1A054] text-white font-bold py-2 px-4 rounded">
-                            PAY
-                        </button>
+                        {
+                            carts.length === 0 ?
+                                <button disabled={true} className="bg-[#D1A054] disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-bold py-2 px-4 rounded">
+                                    PAY
+                                </button>
+                                :
+                                <Link to={'/dashboard/payment'}>
+                                    <button className="bg-[#D1A054] text-white font-bold py-2 px-4 rounded">
+                                        PAY
+                                    </button>
+                                </Link>
+                        }
                     </div>
 
                     <div className=" overflow-x-auto rounded-t-lg">
