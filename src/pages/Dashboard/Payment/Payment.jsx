@@ -8,7 +8,6 @@ const Payment = () => {
     return (
         <div>
             <SectionHeader title={'Payment'} subTitle={'Please Pay here..'}></SectionHeader>
-
             <div>
                 <Elements stripe={stripePromise}>
                     <CheckoutForm />

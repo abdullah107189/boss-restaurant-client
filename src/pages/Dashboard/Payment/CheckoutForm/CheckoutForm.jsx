@@ -4,6 +4,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useCarts from "../../../../hooks/useCarts";
 import useAuth from "../../../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const CheckoutForm = () => {
     const axiosSecure = useAxiosSecure()
     const { user } = useAuth()
@@ -12,9 +13,9 @@ const CheckoutForm = () => {
     const elements = useElements();
     const [paymentError, setPaymentError] = useState('')
     const [transactionId, setTransactionId] = useState('')
-    const { carts,refetch } = useCarts()
+    const { carts, refetch } = useCarts()
     const totalPrice = carts.reduce((total, item) => total + item.price, 0)
-
+    const navigate = useNavigate()
     useEffect(() => {
         if (totalPrice > 0) {
             axiosSecure.post('/create-payment-intent', { price: totalPrice })
@@ -22,7 +23,6 @@ const CheckoutForm = () => {
                     setClientSecret(res.data.clientSecret)
                 })
         }
-
     }, [totalPrice, axiosSecure])
 
     const handleSubmit = async e => {
@@ -70,7 +70,8 @@ const CheckoutForm = () => {
                     transactionId: paymentIntent.id,
                     price: totalPrice,
                     date: new Date(),//utc date convert to do. use moment js
-                    cardIds: carts.map(item => item._id),
+                    cartIds: carts.map(item => item._id),
+                    menuIds: carts.map(item => item.menuId),
                     status: 'pending'
                 }
                 const { data } = await axiosSecure.post('/payments', payment)
@@ -81,6 +82,7 @@ const CheckoutForm = () => {
                         icon: "success"
                     });
                     refetch()
+                    navigate('/dashboard/payment-history')
                 }
             }
         }
